@@ -161,24 +161,87 @@ delete from practice_delete where type = 'silver';
 delete from practice_delete where value = 150;
 
 -- ---------------eCommerce Simulation---------------
--- ----------1----------
+-- ----------1.1----------
+create table users (
+  user_id serial primary key,
+  name varchar(50),
+  email varchar(100)
+);
 
--- ----------2----------
--- ----------3----------
+-- ----------1.2----------
+create table products (
+  product_id serial primary key,
+  name varchar(50),
+  price decimal
+);
+
+-- ----------1.3----------
+create table orders (
+  order_id serial primary key,
+  product_id_1 int,
+  product_id_2 int,
+  product_id_3 int
+);
+
+-- ----------2.1----------
+insert into users (email, name)
+values ('brian@brian.com', 'Brian');
+
+insert into users (email, name)
+values ('brittney@brittney.com', 'Brittney');
+
+insert into users (email, name)
+values ('evan@evan.com', 'Evan');
+
+-- ----------2.2----------
+insert into products (name, price)
+values ('Big Mac', 4.99);
+
+insert into products (name, price)
+values ('Large Fry', 1.99);
+
+insert into products (name, price)
+values ('Large Dr. Pepper', 0.99);
+
+-- ----------2.3----------
+insert into orders (product_id_1, product_id_2, product_id_3)
+values (1, 2, 3);
+
+insert into orders (product_id_1, product_id_2, product_id_3)
+values (1, 1, 3);
+
+insert into orders (product_id_1, product_id_2, product_id_3)
+values (2, 3, 3);
+
+-- ----------3.1----------
+select * from orders
+where order_id =1
+
+-- ----------3.2----------
+select * from orders
+
+-- ----------3.3----------
+
 -- ----------4----------
+alter table orders 
+add column user_id INTEGER REFERENCES users(user_id);
+
 -- ----------5----------
--- ----------6----------
--- ----------7----------
--- ----------8----------
--- ----------9----------
--- ----------10----------
--- ----------11----------
--- ----------12----------
--- ----------13----------
--- ----------14----------
--- ----------15----------
--- ----------16----------
--- ----------17----------
--- ----------18----------
--- ----------19----------
--- ----------20----------
+update orders set user_id = 1
+where order_id = 1;
+
+update orders set user_id = 3
+where order_id = 2;
+
+update orders set user_id = 2
+where order_id = 3;
+
+-- ----------6.1----------
+select * from orders
+where user_id =1
+
+-- ----------6.2----------
+select count(*) from orders
+where user_id =1
+
+-- ----------BD----------
